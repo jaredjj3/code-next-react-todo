@@ -7,7 +7,7 @@ export default class TodoList extends Component {
       <ul className="list-group list-group-flush">
         {this.props.todos.map(todo => (
           <TodoListItem
-            key={todo.index}
+            key={todo.id}
             todo={todo}
             onToggle={this.props.onTodoListItemToggle}
             onRemove={this.props.onTodoListItemRemove}
