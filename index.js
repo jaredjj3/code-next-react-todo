@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import TodoInput from './TodoInput';
-import TodoList from './TodoList';
-import './style.css';
+import React, { Component } from "react";
+import { render } from "react-dom";
+import TodoInput from "./TodoInput";
+import TodoList from "./TodoList";
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +11,8 @@ class App extends React.Component {
     // the rest of the components. Data flows from this
     // component "downwards" to the child components.
     this.state = {
-      todos: [],
+      reactDevName: "Jared",
+      todos: []
     };
 
     // In React class components, we bind each event handler to
@@ -37,7 +37,7 @@ class App extends React.Component {
     const todo = {
       id: this.nextId++,
       text: todoInputValue,
-      isComplete: false,
+      isComplete: false
     };
 
     this.state.todos.push(todo);
@@ -50,7 +50,7 @@ class App extends React.Component {
    * todo matches the given id, do nothing.
    */
   onTodoListItemToggle(id) {
-    const todo = this.state.todos.find((todo) => todo.id === id);
+    const todo = this.state.todos.find(todo => todo.id === id);
     if (!todo) {
       return;
     }
@@ -66,25 +66,32 @@ class App extends React.Component {
   onTodoListItemRemove(id) {
     this.setState({
       ...this.state,
-      todos: this.state.todos.filter((todo) => todo.id !== id),
+      todos: this.state.todos.filter(todo => todo.id !== id)
     });
   }
 
   render() {
     return (
-      <div>
+      <div className="container">
+        <h1>{this.state.reactDevName}'s Todos</h1>
         <TodoInput onEnter={this.onTodoInputEnter} />
+
+        <br />
+
         <TodoList
           todos={this.state.todos}
           onTodoListItemToggle={this.onTodoListItemToggle}
           onTodoListItemRemove={this.onTodoListItemRemove}
         />
-        <div>
-          {JSON.stringify(this.state.todos)}
-        </div>
+
+        <br />
+
+        <pre className="alert alert-warning">
+          this.state = {JSON.stringify(this.state, null, 2)}
+        </pre>
       </div>
     );
   }
 }
 
-render(<App />, document.getElementById('root'));
+render(<App />, document.getElementById("root"));

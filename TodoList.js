@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import TodoListItem from './TodoListItem';
+import React, { Component } from "react";
+import TodoListItem from "./TodoListItem";
 
 export default class TodoList extends Component {
   render() {
     return (
-      <ul>
-        {this.props.todos.map((todo) =>  (
+      <ul className="list-group list-group-flush">
+        {this.props.todos.map(todo => (
           <TodoListItem
             key={todo.index}
             todo={todo}

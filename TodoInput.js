@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 export default class TodoInput extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: '',
+      value: ""
     };
 
     this.onKeyPress = this.onKeyPress.bind(this);
@@ -20,7 +20,7 @@ export default class TodoInput extends React.Component {
   onChange(event) {
     this.setState({
       ...this.state,
-      value: event.target.value,
+      value: event.target.value
     });
   }
 
@@ -29,7 +29,7 @@ export default class TodoInput extends React.Component {
    * the input before calling the onEnter prop.
    */
   onKeyPress(event) {
-    if (event.key !== 'Enter') {
+    if (event.key !== "Enter") {
       return;
     }
 
@@ -37,14 +37,25 @@ export default class TodoInput extends React.Component {
 
     this.setState({
       ...this.state,
-      value: '',
+      value: ""
     });
+  }
+
+  componentDidMount() {
+    if (this.props.initialValue) {
+      this.setState({
+        ...this.state,
+        value: this.props.initialValue
+      });
+    }
   }
 
   render() {
     return (
       <input
+        className="form-control"
         type="text"
+        placeholder="What do you need to do?"
         value={this.state.value}
         onChange={this.onChange}
         onKeyPress={this.onKeyPress}

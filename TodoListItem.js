@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class TodoListItem extends Component {
   constructor(props) {
     super(props);
 
-    this.onToggleClick = this.onToggleClick.bind(this);
+    this.onCheckboxChange = this.onCheckboxChange.bind(this);
     this.onRemoveClick = this.onRemoveClick.bind(this);
   }
 
-  onToggleClick(event) {
+  onCheckboxChange(event) {
     this.props.onToggle(this.props.todo.id);
   }
 
@@ -17,18 +17,32 @@ export default class TodoListItem extends Component {
   }
 
   render() {
-    const todo = this.props.todo;
-    const text = todo.isComplete ? `${todo.text} (completed)` : todo.text;
+    const id = `todo-id-${this.props.todo.id}`;
+    const baseClassName = 'list-group-item d-flex justify-content-between align-items-center';
+    const className = this.props.todo.isComplete
+      ? baseClassName + ' list-group-item-success'
+      : baseClassName;
 
     return (
-      <li>
-        <button onClick={this.onToggleClick}>
-          toggle
-        </button>
-        <button onClick={this.onRemoveClick}>
+      <li className={className}>
+        <div class="form-check form-check-inline">
+          <input
+            id={id}
+            className="form-check-input"
+            type="checkbox"
+            checked={this.props.todo.isComplete}
+            onChange={this.onCheckboxChange}
+          />
+          <label for={id} className="form-check-label">
+            {this.props.todo.text}
+          </label>
+        </div>
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={this.onRemoveClick}
+        >
           remove
         </button>
-        <span>{text}</span>
       </li>
     );
   }
