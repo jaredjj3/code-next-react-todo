@@ -12,11 +12,16 @@ export default class TodoInput extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
+  /**
+   * Updates the state value to match the value in the
+   * input. When React performs a re-render, it won't
+   * 'undo' the change that was just made.
+   */
   onChange(event) {
     this.setState({
       ...this.state,
       value: event.target.value,
-    })
+    });
   }
 
   /**
