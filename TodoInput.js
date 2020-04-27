@@ -11,22 +11,20 @@ export default class TodoInput extends React.Component {
     this.onKeyPress = this.onKeyPress.bind(this);
   }
 
+  /**
+   * Determines if a user pressed enter and validates
+   * the input before calling the onEnter prop.
+   */
   onKeyPress(event) {
     if (event.key !== 'Enter') {
       return;
     }
 
     if (this.props.value) {
-      this.setState({
-        ...this.state,
-        error: ''
-      });
+      this.setState({ ...this.state, error: '' });
       this.props.onEnter(event);
     } else {
-      this.setState({
-        ...this.state,
-        error: 'should not have a blank todo'
-      });
+      this.setState({ ...this.state, error: 'should not have a blank todo'});
     }
   }
 

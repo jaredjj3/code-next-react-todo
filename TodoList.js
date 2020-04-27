@@ -8,6 +8,11 @@ export default class TodoList extends Component {
     this.onClick = this.onClick.bind(this);
   }
 
+  /**
+   * Given a click event from a child component, read its
+   * data-todo-id, and call the appropriate action based
+   * on it.
+   */
   onClick(event) {
     const data = event.target.dataset;
     if (!data.hasOwnProperty('todoId')) {
