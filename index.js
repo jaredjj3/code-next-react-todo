@@ -34,15 +34,20 @@ class App extends React.Component {
    * Create a todo, and then push it onto a new todos array.
    */
   onTodoInputEnter(todoInputValue) {
+    const nextTodos = this.state.todos.slice();
+
     const todo = {
       id: this.nextId++,
       text: todoInputValue,
       isComplete: false
     };
 
-    this.state.todos.push(todo);
+    nextTodos.push(todo);
 
-    this.setState({ ...this.state });
+    this.setState({
+      ...this.state,
+      todos: nextTodos,
+    });
   }
 
   /**
@@ -50,14 +55,18 @@ class App extends React.Component {
    * todo matches the given id, do nothing.
    */
   onTodoListItemToggle(id) {
-    const todo = this.state.todos.find(todo => todo.id === id);
+    const nextTodos = this.state.todos.slice();
+    const todo = nextTodos.find(todo => todo.id === id);
     if (!todo) {
       return;
     }
 
     todo.isComplete = !todo.isComplete;
 
-    this.setState({ ...this.state });
+    this.setState({
+      ...this.state,
+      todos: nextTodos,
+    });
   }
 
   /**
