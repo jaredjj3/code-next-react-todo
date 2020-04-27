@@ -8,10 +8,10 @@ export default class TodoInput extends React.Component {
       error: '',
     };
 
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
   }
 
-  handleKeyPress(event) {
+  onKeyPress(event) {
     if (event.key !== 'Enter') {
       return;
     }
@@ -37,7 +37,7 @@ export default class TodoInput extends React.Component {
           type="text"
           value={this.props.value}
           onChange={this.props.onChange}
-          onKeyPress={this.handleKeyPress}
+          onKeyPress={this.onKeyPress}
         />
         <span>
           {this.state.error}

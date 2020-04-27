@@ -5,27 +5,39 @@ export default class TodoList extends Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-  handleClick(event) {
+  onClick(event) {
     const data = event.target.dataset;
-    if (!data.hasOwnProperty('todoIndex')) {
+    if (!data.hasOwnProperty('todoId')) {
+      return;
+    }
+    if (!data.hasOwnProperty('todoAction')) {
       return;
     }
     
-    const index = parseInt(data.todoIndex, 10);
-    if (Number.isNaN(index)) {
+    const id = parseInt(data.todoId, 10);
+    if (Number.isNaN(id)) {
       return;
     }
 
-    this.props.onTodoListItemToggle(index);
+    switch(data.todoAction) {
+      case 'TOGGLE':
+        this.props.onTodoListItemToggle(id);
+        break;
+      case 'REMOVE':
+        this.props.onTodoListItemRemove(id);
+        break;
+      default:
+        console.error(`${data.todoAction} not handled`);
+    }
   }
 
   render() {
     return (
-      <ul onClick={this.handleClick}>
-        {this.props.todos.map((todo) => <TodoListItem todo={todo} />)}
+      <ul onClick={this.onClick}>
+        {this.props.todos.map((todo) => <TodoListItem key={todo.index} todo={todo} />)}
       </ul>
     );
   }
