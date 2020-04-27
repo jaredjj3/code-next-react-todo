@@ -5,10 +5,18 @@ export default class TodoInput extends React.Component {
     super(props);
 
     this.state = {
-      error: '',
+      value: '',
     };
 
     this.onKeyPress = this.onKeyPress.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({
+      ...this.state,
+      value: event.target.value,
+    })
   }
 
   /**
@@ -20,27 +28,22 @@ export default class TodoInput extends React.Component {
       return;
     }
 
-    if (this.props.value) {
-      this.setState({ ...this.state, error: '' });
-      this.props.onEnter(event);
-    } else {
-      this.setState({ ...this.state, error: 'should not have a blank todo'});
-    }
+    this.props.onEnter(this.state.value);
+
+    this.setState({
+      ...this.state,
+      value: '',
+    });
   }
 
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          value={this.props.value}
-          onChange={this.props.onChange}
-          onKeyPress={this.onKeyPress}
-        />
-        <span>
-          {this.state.error}
-        </span>
-      </div>
+      <input
+        type="text"
+        value={this.state.value}
+        onChange={this.onChange}
+        onKeyPress={this.onKeyPress}
+      />
     );
   }
 }

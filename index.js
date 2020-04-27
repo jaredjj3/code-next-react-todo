@@ -12,7 +12,6 @@ class App extends React.Component {
     // the rest of the components. Data flows from this
     // component "downwards" to the child components.
     this.state = {
-      currentTodoText: '',
       todos: [],
     };
 
@@ -21,7 +20,6 @@ class App extends React.Component {
     // the 'this' variable is pointing to this instance. If we
     // skipped this step, then the 'this' variable would be
     // undefined.
-    this.onTodoInputChange = this.onTodoInputChange.bind(this);
     this.onTodoInputEnter = this.onTodoInputEnter.bind(this);
     this.onTodoListItemToggle = this.onTodoListItemToggle.bind(this);
     this.onTodoListItemRemove = this.onTodoListItemRemove.bind(this);
@@ -33,31 +31,18 @@ class App extends React.Component {
   }
 
   /**
-   * Update the current todo text to match the input's value.
-   */
-  onTodoInputChange(event) {
-    this.setState({
-      ...this.state,
-      currentTodoText: event.target.value,
-    });
-  }
-
-  /**
    * Create a todo, and then push it onto a new todos array.
    */
-  onTodoInputEnter(event) {
+  onTodoInputEnter(todoInputValue) {
     const todo = {
       id: this.nextId++,
-      text: this.state.currentTodoText,
+      text: todoInputValue,
       isComplete: false,
     };
 
     this.state.todos.push(todo);
 
-    this.setState({
-      ...this.state,
-      currentTodoText: '',
-    });
+    this.setState({ ...this.state });
   }
 
   /**
@@ -88,11 +73,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TodoInput 
-          value={this.state.currentTodoText}
-          onChange={this.onTodoInputChange}
-          onEnter={this.onTodoInputEnter}
-        />
+        <TodoInput  onEnter={this.onTodoInputEnter} />
         <TodoList
           todos={this.state.todos}
           onTodoListItemToggle={this.onTodoListItemToggle}
